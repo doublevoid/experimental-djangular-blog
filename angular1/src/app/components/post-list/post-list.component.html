@@ -1,0 +1,69 @@
+<div class="list row">
+    <div class="col-md-8">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search by title"
+          [(ngModel)]="title"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="searchTitle()"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h4>Posts List</h4>
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let post of posts; let i = index"
+          [class.active]="i == currentIndex"
+          (click)="setActivePost(post, i)"
+        >
+          {{ post.title }}
+        </li>
+      </ul>
+  
+      <button class="m-3 btn btn-sm btn-danger" (click)="removeAllPosts()">
+        Remove All
+      </button>
+    </div>
+    <div class="col-md-6">
+      <div *ngIf="currentPost.id">
+        <h4>Post</h4>
+        <div>
+          <label><strong>Title:</strong></label> {{ currentPost.title }}
+        </div>
+        <div>
+          <label><strong>Text:</strong></label>
+          {{ currentPost.text }}
+        </div>
+        <div>
+          <label><strong>Status:</strong></label>
+          {{ currentPost.published ? "Published" : "Pending" }}
+        </div>
+        <div>
+          <label><strong>Created time:</strong></label>{{ currentPost.created_date}}
+        </div>
+        <div *ngIf="currentPost.published">
+            <label><strong>Publish time:</strong></label>{{currentPost.published_date}}
+        </div>
+  
+        <a class="badge badge-warning" routerLink="/posts/{{ currentPost.id }}">
+          Edit
+        </a>
+      </div>
+  
+      <div *ngIf="!currentPost">
+        <br />
+        <p>Please click on a Post...</p>
+      </div>
+    </div>
+  </div>
